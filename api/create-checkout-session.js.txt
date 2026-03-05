@@ -1,15 +1,15 @@
-// api/create-checkout-session.js
-import Stripe from "stripe";
+const Stripe = require("stripe");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   try {
-    if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method not allowed" });
+    }
 
     const { items, customerEmail, successUrl, cancelUrl } = req.body;
 
-    // items = [{ qtyPack: 10, unitPrice: 2.8, photos: ["https://...","..."] }, ...]
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: "No items" });
     }
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       price_data: {
         currency: "eur",
         product_data: { name: `PhotoMagia — Pack ${it.qtyPack} ímanes (5×5 cm)` },
-        unit_amount: Math.round(it.unitPrice * 100), // cents
+        unit_amount: Math.round(it.unitPrice * 100),
       },
       quantity: it.qtyPack,
     }));
@@ -27,45 +27,29 @@ export default async function handler(req, res) {
       mode: "payment",
       customer_email: customerEmail || undefined,
 
-      // Morada (para envio)
       shipping_address_collection: {
         allowed_countries: ["PT", "ES", "FR", "DE", "BE", "NL", "IT", "IE", "LU", "AT"],
       },
-
-      // Opções de envio (ajusta valores como quiseres)
       shipping_options: [
         {
           shipping_rate_data: {
             display_name: "Envio Portugal",
             type: "fixed_amount",
-            fixed_amount: { amount: 390, currency: "eur" }, // 3.90€
-            delivery_estimate: {
-              minimum: { unit: "business_day", value: 2 },
-              maximum: { unit: "business_day", value: 5 },
-            },
+            fixed_amount: { amount: 390, currency: "eur" },
           },
         },
         {
           shipping_rate_data: {
             display_name: "Envio Europa",
             type: "fixed_amount",
-            fixed_amount: { amount: 790, currency: "eur" }, // 7.90€
-            delivery_estimate: {
-              minimum: { unit: "business_day", value: 4 },
-              maximum: { unit: "business_day", value: 10 },
-            },
+            fixed_amount: { amount: 790, currency: "eur" },
           },
         },
       ],
 
       line_items,
-
-      // Guardamos as fotos no metadata (limite existe; para MVP funciona)
-      // Melhor prática: guardar num DB e meter só um orderId aqui — depois fazemos isso.
       metadata: {
-        photomagia_items: JSON.stringify(
-          items.map((it) => ({ qtyPack: it.qtyPack, unitPrice: it.unitPrice, photos: it.photos }))
-        ).slice(0, 4800),
+        photomagia_items: JSON.stringify(items).slice(0, 4800),
       },
 
       success_url: successUrl,
@@ -76,4 +60,4 @@ export default async function handler(req, res) {
   } catch (e) {
     return res.status(500).json({ error: e.message || "Server error" });
   }
-}
+};
