@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 
-function App() {
+export default function App() {
   const [language, setLanguage] = useState("pt");
-  const [selectedPack, setSelectedPack] = useState({ qty: 10, unit: 2.8, label: "10 Ímanes" });
+  const [selectedPack, setSelectedPack] = useState({ qty: 10, unit: 2.8, label: "10 Ímanes", discount: "-7%" });
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +45,6 @@ function App() {
       const successUrl = `${window.location.origin}/?success=1`;
       const cancelUrl = `${window.location.origin}/?canceled=1`;
 
-      // Enviamos UM item (um pack) para o backend Stripe
       const payload = {
         customerEmail: email || undefined,
         successUrl,
@@ -54,7 +53,7 @@ function App() {
           {
             qtyPack: selectedPack.qty,
             unitPrice: selectedPack.unit,
-            photos: [], // depois ligamos Cloudinary e colocamos links aqui
+            photos: [],
           },
         ],
       };
@@ -71,7 +70,7 @@ function App() {
         return;
       }
 
-      window.location.href = data.url; // abre Stripe Checkout
+      window.location.href = data.url;
     } catch (e) {
       alert(e?.message || "Erro inesperado");
     } finally {
@@ -81,7 +80,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 to-purple-200 text-gray-800">
-      {/* Navbar */}
       <div className="flex justify-between items-center p-6">
         <h1 className="text-3xl font-bold text-pink-600">PhotoMagia</h1>
         <div className="space-x-2">
@@ -91,11 +89,8 @@ function App() {
         </div>
       </div>
 
-      {/* Hero */}
       <div className="text-center py-12 px-4">
-        <h2 className="text-5xl font-bold mb-4 text-purple-700">
-          {content[language].title}
-        </h2>
+        <h2 className="text-5xl font-bold mb-4 text-purple-700">{content[language].title}</h2>
         <p className="text-xl mb-8">{content[language].subtitle}</p>
 
         <div className="max-w-md mx-auto bg-white/80 rounded-2xl p-4 shadow">
@@ -111,11 +106,8 @@ function App() {
         </div>
       </div>
 
-      {/* Packages */}
       <div className="py-12 px-6 bg-white rounded-t-3xl shadow-xl">
-        <h3 className="text-3xl font-bold text-center mb-10">
-          {content[language].packages}
-        </h3>
+        <h3 className="text-3xl font-bold text-center mb-10">{content[language].packages}</h3>
 
         <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {packs.map((pack) => {
@@ -132,15 +124,12 @@ function App() {
                 <h4 className="text-2xl font-bold mb-2">{pack.label}</h4>
                 <p className="text-lg mb-2">€{(pack.qty * pack.unit).toFixed(2)}</p>
                 <p className="text-sm text-green-700 mb-4">{pack.discount}</p>
-                <div className="text-xs text-gray-600">
-                  {pack.unit.toFixed(2)}€ / íman
-                </div>
+                <div className="text-xs text-gray-600">{pack.unit.toFixed(2)}€ / íman</div>
               </button>
             );
           })}
         </div>
 
-        {/* Checkout box */}
         <div className="max-w-2xl mx-auto mt-10 bg-purple-50 rounded-2xl p-6 border border-purple-200">
           <div className="flex items-center justify-between font-semibold">
             <span>Total</span>
@@ -159,17 +148,14 @@ function App() {
           </button>
 
           <p className="text-xs text-gray-600 mt-3">
-            No Stripe vais inserir a morada e escolher envio (Portugal/Europa).
+            No checkout vais inserir a morada e escolher envio (Portugal/Europa).
           </p>
         </div>
       </div>
 
-      {/* Footer */}
       <div className="text-center py-8 text-sm text-gray-600">
         © {new Date().getFullYear()} PhotoMagia – Ímanes personalizados 5x5cm – 3€ cada (packs com desconto)
       </div>
     </div>
   );
 }
-
-export default App;
