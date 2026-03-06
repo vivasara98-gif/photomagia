@@ -10,18 +10,14 @@ export default function App() {
   const content = {
     pt: {
       brand: "PhotoMagia",
-      title: "Transforma memórias especiais em ímanes cheios de encanto",
+      title: "Guarda os teus momentos mais especiais em ímanes cheios de encanto",
       subtitle:
-        "Um detalhe delicado, elegante e pessoal para guardar os teus momentos mais bonitos.",
+        "Delicados, personalizados e perfeitos para oferecer ou guardar como recordação.",
       upload: "Carregar foto",
       preview: "Pré-visualização",
       choosePack: "Escolhe o teu pack",
       buy: "Comprar agora",
       popular: "Mais escolhido",
-      how: "Como funciona",
-      step1: "Escolhe o pack ideal",
-      step2: "Carrega a tua foto favorita",
-      step3: "Finaliza a encomenda com segurança",
       inspiration: "Perfeito para momentos especiais",
       occasion1: "Casamentos",
       occasion2: "Bebés",
@@ -29,11 +25,14 @@ export default function App() {
       occasion4: "Aniversários",
       whyTitle: "Porque escolher PhotoMagia",
       why1Title: "Elegante e delicado",
-      why1Text: "Um presente bonito e intemporal para transformar fotos em recordações especiais.",
+      why1Text:
+        "Um presente bonito e intemporal para transformar fotos em recordações especiais.",
       why2Title: "Feito com carinho",
-      why2Text: "Cada íman é pensado para ficar bonito, harmonioso e cheio de significado.",
+      why2Text:
+        "Cada íman é pensado para ficar bonito, harmonioso e cheio de significado.",
       why3Title: "Ideal para oferecer",
-      why3Text: "Perfeito para surpreender alguém com um presente pessoal e memorável.",
+      why3Text:
+        "Perfeito para surpreender alguém com um presente pessoal e memorável.",
       shippingTitle: "Envio",
       shipping1: "Portugal — envio disponível",
       shipping2: "Europa — envio disponível",
@@ -41,18 +40,14 @@ export default function App() {
     },
     en: {
       brand: "PhotoMagia",
-      title: "Turn special memories into charming magnets",
+      title: "Keep your most special moments in charming photo magnets",
       subtitle:
-        "A delicate, elegant and personal way to keep your most beautiful moments close.",
+        "Delicate, personalized and perfect to gift or keep as a beautiful memory.",
       upload: "Upload photo",
       preview: "Preview",
       choosePack: "Choose your pack",
       buy: "Buy now",
       popular: "Most chosen",
-      how: "How it works",
-      step1: "Choose your ideal pack",
-      step2: "Upload your favorite photo",
-      step3: "Complete your order securely",
       inspiration: "Perfect for special moments",
       occasion1: "Weddings",
       occasion2: "Babies",
@@ -60,11 +55,14 @@ export default function App() {
       occasion4: "Birthdays",
       whyTitle: "Why choose PhotoMagia",
       why1Title: "Elegant and delicate",
-      why1Text: "A beautiful and timeless gift to turn photos into special keepsakes.",
+      why1Text:
+        "A beautiful and timeless gift to turn photos into special keepsakes.",
       why2Title: "Made with care",
-      why2Text: "Each magnet is crafted to feel beautiful, balanced and meaningful.",
+      why2Text:
+        "Each magnet is crafted to feel beautiful, balanced and meaningful.",
       why3Title: "Perfect to gift",
-      why3Text: "A lovely way to surprise someone with a personal and memorable present.",
+      why3Text:
+        "A lovely way to surprise someone with a personal and memorable present.",
       shippingTitle: "Shipping",
       shipping1: "Portugal — shipping available",
       shipping2: "Europe — shipping available",
@@ -72,18 +70,14 @@ export default function App() {
     },
     fr: {
       brand: "PhotoMagia",
-      title: "Transformez vos souvenirs en aimants pleins de charme",
+      title: "Gardez vos plus beaux moments dans des aimants pleins de charme",
       subtitle:
-        "Une façon délicate, élégante et personnelle de garder vos plus beaux moments près de vous.",
+        "Délicats, personnalisés et parfaits à offrir ou à garder comme souvenir.",
       upload: "Télécharger une photo",
       preview: "Aperçu",
       choosePack: "Choisissez votre pack",
       buy: "Acheter maintenant",
       popular: "Le plus choisi",
-      how: "Comment ça marche",
-      step1: "Choisissez le pack idéal",
-      step2: "Téléchargez votre photo préférée",
-      step3: "Finalisez votre commande en toute sécurité",
       inspiration: "Parfait pour les moments spéciaux",
       occasion1: "Mariages",
       occasion2: "Bébés",
@@ -91,11 +85,14 @@ export default function App() {
       occasion4: "Anniversaires",
       whyTitle: "Pourquoi choisir PhotoMagia",
       why1Title: "Élégant et délicat",
-      why1Text: "Un cadeau beau et intemporel pour transformer des photos en souvenirs précieux.",
+      why1Text:
+        "Un cadeau beau et intemporel pour transformer des photos en souvenirs précieux.",
       why2Title: "Réalisé avec soin",
-      why2Text: "Chaque aimant est pensé pour être harmonieux, beau et plein de sens.",
+      why2Text:
+        "Chaque aimant est pensé pour être harmonieux, beau et plein de sens.",
       why3Title: "Parfait à offrir",
-      why3Text: "Une jolie façon de surprendre quelqu’un avec un cadeau personnel et mémorable.",
+      why3Text:
+        "Une jolie façon de surprendre quelqu’un avec un cadeau personnel et mémorable.",
       shippingTitle: "Livraison",
       shipping1: "Portugal — livraison disponible",
       shipping2: "Europe — livraison disponible",
@@ -127,33 +124,42 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#faf7f6] text-[#564844]">
       <header className="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 rounded-full border-2 border-[#c9a34d] flex items-center justify-center text-[#d98c82] text-xl">
-            ✦
+        <div className="flex items-center gap-4">
+          <img src="/logo.png" alt="PhotoMagia" className="h-16 w-16 object-contain" />
+          <div className="text-3xl font-semibold tracking-tight text-[#d98c82]">
+            {current.brand}
           </div>
-          <div className="text-3xl font-semibold tracking-tight text-[#d98c82]">{current.brand}</div>
         </div>
 
         <div className="space-x-2">
-          <button onClick={() => setLanguage("pt")} className="px-3 py-1.5 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]">
+          <button
+            onClick={() => setLanguage("pt")}
+            className="px-3 py-1.5 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]"
+          >
             PT
           </button>
-          <button onClick={() => setLanguage("en")} className="px-3 py-1.5 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]">
+          <button
+            onClick={() => setLanguage("en")}
+            className="px-3 py-1.5 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]"
+          >
             EN
           </button>
-          <button onClick={() => setLanguage("fr")} className="px-3 py-1.5 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]">
+          <button
+            onClick={() => setLanguage("fr")}
+            className="px-3 py-1.5 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]"
+          >
             FR
           </button>
         </div>
       </header>
 
-      <section className="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-2 gap-12 items-center">
+      <section className="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <div className="inline-block px-4 py-2 rounded-full bg-white shadow-sm text-sm text-[#c9a34d] mb-5 border border-[#f0e4ca]">
             Photo magnets • 5×5 cm
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-semibold leading-tight text-[#564844]">
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight text-[#564844] max-w-xl">
             {current.title}
           </h1>
 
@@ -162,14 +168,16 @@ export default function App() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            {[current.occasion1, current.occasion2, current.occasion3, current.occasion4].map((item) => (
-              <span
-                key={item}
-                className="px-4 py-2 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]"
-              >
-                {item}
-              </span>
-            ))}
+            {[current.occasion1, current.occasion2, current.occasion3, current.occasion4].map(
+              (item) => (
+                <span
+                  key={item}
+                  className="px-4 py-2 bg-white rounded-full shadow-sm text-sm text-[#7d6a64] border border-[#f1dfd8]"
+                >
+                  {item}
+                </span>
+              )
+            )}
           </div>
         </div>
 
@@ -210,6 +218,7 @@ export default function App() {
         <div className="grid md:grid-cols-4 gap-6">
           {packs.map((pack) => {
             const active = selectedPack === pack.qty;
+
             return (
               <div
                 key={pack.qty}
@@ -223,7 +232,9 @@ export default function App() {
                   </div>
                 )}
 
-                <div className="text-2xl font-semibold text-[#564844] mb-2">{pack.qty} Ímanes</div>
+                <div className="text-2xl font-semibold text-[#564844] mb-2">
+                  {pack.qty} Ímanes
+                </div>
                 <div className="text-3xl font-semibold mb-2">€{pack.price.toFixed(2)}</div>
                 <div className="text-emerald-600 text-sm mb-2">{pack.discount}</div>
                 <div className="text-[#8f7c76] text-sm mb-6">{pack.unit}</div>
@@ -264,16 +275,21 @@ export default function App() {
         </h3>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[current.occasion1, current.occasion2, current.occasion3, current.occasion4].map((item) => (
-            <div key={item} className="bg-white rounded-[2rem] shadow-md overflow-hidden border border-[#f1dfd8]">
-              <div className="h-40 bg-gradient-to-br from-[#f7e6e3] to-[#f7f0df] flex items-center justify-center text-[#d98c82] font-medium text-lg">
-                {item}
+          {[current.occasion1, current.occasion2, current.occasion3, current.occasion4].map(
+            (item) => (
+              <div
+                key={item}
+                className="bg-white rounded-[2rem] shadow-md overflow-hidden border border-[#f1dfd8]"
+              >
+                <div className="h-40 bg-gradient-to-br from-[#f7e6e3] to-[#f7f0df] flex items-center justify-center text-[#d98c82] font-medium text-lg">
+                  {item}
+                </div>
+                <div className="p-4 text-sm text-[#7d6a64]">
+                  Um detalhe delicado para guardar um momento especial.
+                </div>
               </div>
-              <div className="p-4 text-sm text-[#7d6a64]">
-                Um detalhe delicado para guardar um momento especial.
-              </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </section>
 
