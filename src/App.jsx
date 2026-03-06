@@ -39,7 +39,9 @@ export default function App() {
 
   const total = useMemo(() => selectedPack.qty * selectedPack.unit, [selectedPack]);
 
-  const handlePay = async () => {
+  const handlePay = () => {
+  window.location.href = "https://buy.stripe.com/test_aFa7sMgcIbdsceM7XB0Fi00";
+};
     setLoading(true);
     try {
       const successUrl = `${window.location.origin}/?success=1`;
