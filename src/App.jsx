@@ -23,6 +23,42 @@ export default function App() {
       step3: "Finaliza a compra com segurança",
       inspiration: "Ideias que ficam lindas em íman",
       popular: "Mais popular",
+<section className="max-w-6xl mx-auto px-6 py-10">
+  <h3 className="text-3xl font-bold text-center text-violet-800 mb-8">
+    Porque escolher PhotoMagia
+  </h3>
+
+  <div className="grid md:grid-cols-3 gap-6">
+
+    <div className="bg-white rounded-3xl shadow-md p-6 text-center">
+      <div className="text-lg font-semibold text-violet-700 mb-2">
+        Qualidade Premium
+      </div>
+      <p className="text-sm text-gray-600">
+        Ímanes resistentes com impressão de alta qualidade para durar muitos anos.
+      </p>
+    </div>
+
+    <div className="bg-white rounded-3xl shadow-md p-6 text-center">
+      <div className="text-lg font-semibold text-violet-700 mb-2">
+        Presente Perfeito
+      </div>
+      <p className="text-sm text-gray-600">
+        Ideal para aniversários, casamentos, viagens e momentos especiais.
+      </p>
+    </div>
+
+    <div className="bg-white rounded-3xl shadow-md p-6 text-center">
+      <div className="text-lg font-semibold text-violet-700 mb-2">
+        Produção Rápida
+      </div>
+      <p className="text-sm text-gray-600">
+        Produzimos rapidamente e enviamos para Portugal e Europa.
+      </p>
+    </div>
+
+  </div>
+</section>
       footer: "Ímanes personalizados 5x5cm",
       occasion1: "Casamentos",
       occasion2: "Bebés",
