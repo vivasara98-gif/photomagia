@@ -125,7 +125,7 @@ export default function App() {
     <div className="min-h-screen bg-[#faf7f6] text-[#564844]">
       <header className="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <img src="/logo.png" alt="PhotoMagia" className="h-16 w-16 object-contain" />
+          <img src="/logo.png" alt="PhotoMagia" className="h-20 md:h-24 object-contain" />
           <div className="text-3xl font-semibold tracking-tight text-[#d98c82]">
             {current.brand}
           </div>
@@ -159,7 +159,7 @@ export default function App() {
             Photo magnets • 5×5 cm
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-semibold leading-tight text-[#564844] max-w-xl">
+          <h1 className="text-3xl md:text-5xl font-semibold leading-tight text-[#564844] max-w-xl">
             {current.title}
           </h1>
 
@@ -203,7 +203,7 @@ export default function App() {
 
           <button
             onClick={handlePay}
-            className="mt-6 w-full bg-gradient-to-r from-[#d98c82] to-[#c9a34d] hover:opacity-95 text-white py-4 rounded-full text-lg font-medium shadow-lg"
+            className="mt-6 w-full bg-[#d98c82] hover:bg-[#c97a70] text-white py-4 rounded-full text-lg font-medium shadow-md"
           >
             {current.buy}
           </button>
@@ -222,7 +222,7 @@ export default function App() {
             return (
               <div
                 key={pack.qty}
-                className={`relative rounded-[2rem] p-6 border transition bg-white shadow-sm ${
+                className={`relative rounded-[2rem] p-6 border transition bg-white shadow-md ${
                   active ? "border-[#d98c82] ring-2 ring-[#efd2cc]" : "border-[#f1dfd8]"
                 } ${pack.featured ? "shadow-xl md:-mt-3" : ""}`}
               >
