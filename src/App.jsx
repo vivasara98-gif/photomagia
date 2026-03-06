@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 export default function App() {
   const [language, setLanguage] = useState("pt");
   const [selectedPack, setSelectedPack] = useState(10);
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const stripeLink = "https://buy.stripe.com/test_aFa7sMgcIbdsceM7XB0Fi00";
 
@@ -13,7 +13,7 @@ export default function App() {
       title: "Guarda os teus momentos mais especiais em ímanes cheios de encanto",
       subtitle:
         "Delicados, personalizados e perfeitos para oferecer ou guardar como recordação.",
-      upload: "Carregar foto",
+      upload: "Carregar fotos",
       preview: "Pré-visualização",
       choosePack: "Escolhe o teu pack",
       buy: "Comprar agora",
@@ -37,13 +37,23 @@ export default function App() {
       shipping1: "Portugal — envio disponível",
       shipping2: "Europa — envio disponível",
       footer: "Ímanes personalizados 5x5cm",
+      selectPackFirst: "Escolhe primeiro o pack ideal.",
+      uploadHint: "Cada foto corresponde a 1 íman.",
+      selectedPhotos: "Fotos selecionadas",
+      missingPhotos: "Faltam",
+      exactPhotos: "Perfeito! Já tens o número certo de fotos para este pack.",
+      tooManyPhotos: "Selecionaste fotos a mais para este pack.",
+      needMorePhotos: "Seleciona o número total de fotos correspondente ao pack escolhido.",
+      packReady: "Pack pronto para comprar",
+      photosWord: "fotos",
+      clearPhotos: "Limpar fotos",
     },
     en: {
       brand: "PhotoMagia",
       title: "Keep your most special moments in charming photo magnets",
       subtitle:
         "Delicate, personalized and perfect to gift or keep as a beautiful memory.",
-      upload: "Upload photo",
+      upload: "Upload photos",
       preview: "Preview",
       choosePack: "Choose your pack",
       buy: "Buy now",
@@ -67,13 +77,23 @@ export default function App() {
       shipping1: "Portugal — shipping available",
       shipping2: "Europe — shipping available",
       footer: "Custom 5x5cm magnets",
+      selectPackFirst: "Choose your ideal pack first.",
+      uploadHint: "Each photo corresponds to 1 magnet.",
+      selectedPhotos: "Selected photos",
+      missingPhotos: "Missing",
+      exactPhotos: "Perfect! You already have the right number of photos for this pack.",
+      tooManyPhotos: "You selected too many photos for this pack.",
+      needMorePhotos: "Select the total number of photos that matches the chosen pack.",
+      packReady: "Pack ready to buy",
+      photosWord: "photos",
+      clearPhotos: "Clear photos",
     },
     fr: {
       brand: "PhotoMagia",
       title: "Gardez vos plus beaux moments dans des aimants pleins de charme",
       subtitle:
         "Délicats, personnalisés et parfaits à offrir ou à garder comme souvenir.",
-      upload: "Télécharger une photo",
+      upload: "Télécharger des photos",
       preview: "Aperçu",
       choosePack: "Choisissez votre pack",
       buy: "Acheter maintenant",
@@ -97,6 +117,16 @@ export default function App() {
       shipping1: "Portugal — livraison disponible",
       shipping2: "Europe — livraison disponible",
       footer: "Aimants personnalisés 5x5cm",
+      selectPackFirst: "Choisissez d'abord le pack idéal.",
+      uploadHint: "Chaque photo correspond à 1 aimant.",
+      selectedPhotos: "Photos sélectionnées",
+      missingPhotos: "Il manque",
+      exactPhotos: "Parfait ! Vous avez déjà le bon nombre de photos pour ce pack.",
+      tooManyPhotos: "Vous avez sélectionné trop de photos pour ce pack.",
+      needMorePhotos: "Sélectionnez le nombre total de photos correspondant au pack choisi.",
+      packReady: "Pack prêt à acheter",
+      photosWord: "photos",
+      clearPhotos: "Effacer les photos",
     },
   };
 
@@ -108,27 +138,34 @@ export default function App() {
   ];
 
   const current = content[language];
-  const previewUrl = useMemo(() => (file ? URL.createObjectURL(file) : null), [file]);
+  const selectedPrice = packs.find((p) => p.qty === selectedPack)?.price ?? 28;
+  const selectedCount = files.length;
+  const missingCount = Math.max(selectedPack - selectedCount, 0);
+  const tooMany = selectedCount > selectedPack;
+  const exactMatch = selectedCount === selectedPack;
+  const canBuy = exactMatch;
+
+  const previewUrls = useMemo(() => {
+    return files.map((file) => URL.createObjectURL(file));
+  }, [files]);
 
   const handlePay = () => {
+    if (!canBuy) return;
     window.location.href = stripeLink;
   };
 
   const handleFileChange = (e) => {
-    const selected = e.target.files?.[0];
-    if (selected) setFile(selected);
+    const selected = Array.from(e.target.files || []);
+    setFiles(selected);
   };
 
-  const selectedPrice = packs.find((p) => p.qty === selectedPack)?.price ?? 28;
+  const clearPhotos = () => setFiles([]);
 
   return (
     <div className="min-h-screen bg-[#faf7f6] text-[#564844]">
       <header className="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <img src="/logo.png" alt="PhotoMagia" className="h-20 md:h-24 object-contain" />
-          <div className="text-3xl font-semibold tracking-tight text-[#d98c82]">
-            {current.brand}
-          </div>
+          <img src="/logo.png" alt="PhotoMagia" className="h-20 object-contain" />
         </div>
 
         <div className="space-x-2">
@@ -159,7 +196,7 @@ export default function App() {
             Photo magnets • 5×5 cm
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-semibold leading-tight text-[#564844] max-w-xl">
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight text-[#564844] max-w-xl">
             {current.title}
           </h1>
 
@@ -183,30 +220,7 @@ export default function App() {
 
         <div className="bg-white rounded-[2rem] shadow-xl border border-[#f1dfd8] p-6 md:p-8">
           <h2 className="text-xl font-semibold text-[#d98c82] mb-4">{current.upload}</h2>
-
-          <label className="flex items-center justify-center w-full min-h-[150px] border-2 border-dashed border-[#e9c9c2] rounded-[1.5rem] cursor-pointer bg-[#fcf2ef] hover:bg-[#faece8] transition">
-            <div className="text-center px-4">
-              <div className="text-base font-medium text-[#d98c82]">{current.upload}</div>
-              <div className="text-sm text-[#8f7c76] mt-1">JPG, PNG, HEIC</div>
-            </div>
-            <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-          </label>
-
-          {previewUrl && (
-            <div className="mt-6">
-              <p className="text-sm text-[#8f7c76] mb-3">{current.preview}</p>
-              <div className="w-44 h-44 rounded-[1.5rem] overflow-hidden border border-[#e9c9c2] shadow bg-white">
-                <img src={previewUrl} alt="preview" className="w-full h-full object-cover" />
-              </div>
-            </div>
-          )}
-
-          <button
-            onClick={handlePay}
-            className="mt-6 w-full bg-[#d98c82] hover:bg-[#c97a70] text-white py-4 rounded-full text-lg font-medium shadow-md"
-          >
-            {current.buy}
-          </button>
+          <p className="text-sm text-[#8f7c76]">{current.selectPackFirst}</p>
         </div>
       </section>
 
@@ -222,7 +236,7 @@ export default function App() {
             return (
               <div
                 key={pack.qty}
-                className={`relative rounded-[2rem] p-6 border transition bg-white shadow-md ${
+                className={`relative rounded-[2rem] p-6 border transition bg-white shadow-sm ${
                   active ? "border-[#d98c82] ring-2 ring-[#efd2cc]" : "border-[#f1dfd8]"
                 } ${pack.featured ? "shadow-xl md:-mt-3" : ""}`}
               >
@@ -240,7 +254,10 @@ export default function App() {
                 <div className="text-[#8f7c76] text-sm mb-6">{pack.unit}</div>
 
                 <button
-                  onClick={() => setSelectedPack(pack.qty)}
+                  onClick={() => {
+                    setSelectedPack(pack.qty);
+                    setFiles([]);
+                  }}
                   className={`w-full py-3 rounded-full transition font-medium ${
                     active
                       ? "bg-[#d98c82] text-white"
@@ -254,6 +271,65 @@ export default function App() {
           })}
         </div>
 
+        <div className="max-w-3xl mx-auto mt-8 bg-white rounded-[2rem] shadow-lg border border-[#f1dfd8] p-6">
+          <h3 className="text-xl font-semibold text-[#d98c82] mb-4">{current.upload}</h3>
+
+          <label className="flex items-center justify-center w-full min-h-[150px] border-2 border-dashed border-[#e9c9c2] rounded-[1.5rem] cursor-pointer bg-[#fcf2ef] hover:bg-[#faece8] transition">
+            <div className="text-center px-4">
+              <div className="text-base font-medium text-[#d98c82]">{current.upload}</div>
+              <div className="text-sm text-[#8f7c76] mt-1">JPG, PNG, HEIC</div>
+              <div className="text-sm text-[#8f7c76] mt-2">
+                {current.uploadHint}
+              </div>
+            </div>
+            <input type="file" accept="image/*" multiple onChange={handleFileChange} className="hidden" />
+          </label>
+
+          <div className="mt-5 flex items-center justify-between gap-4 flex-wrap">
+            <div className="text-sm text-[#7d6a64]">
+              <span className="font-medium">{current.selectedPhotos}:</span> {selectedCount}/{selectedPack}
+            </div>
+            {selectedCount > 0 && (
+              <button
+                onClick={clearPhotos}
+                className="text-sm text-[#d98c82] underline underline-offset-2"
+              >
+                {current.clearPhotos}
+              </button>
+            )}
+          </div>
+
+          {!selectedCount ? null : tooMany ? (
+            <div className="mt-4 rounded-2xl bg-[#fff3ef] border border-[#f3d3cb] px-4 py-3 text-sm text-[#b26d60]">
+              {current.tooManyPhotos}
+            </div>
+          ) : exactMatch ? (
+            <div className="mt-4 rounded-2xl bg-[#f2fbf5] border border-[#cfead7] px-4 py-3 text-sm text-[#4f8b63]">
+              {current.exactPhotos}
+            </div>
+          ) : (
+            <div className="mt-4 rounded-2xl bg-[#fff8ef] border border-[#f3e0bf] px-4 py-3 text-sm text-[#a57b3d]">
+              {current.missingPhotos} {missingCount} {current.photosWord}. {current.needMorePhotos}
+            </div>
+          )}
+
+          {previewUrls.length > 0 && (
+            <div className="mt-6">
+              <p className="text-sm text-[#8f7c76] mb-3">{current.preview}</p>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                {previewUrls.map((src, index) => (
+                  <div
+                    key={index}
+                    className="aspect-square rounded-[1.2rem] overflow-hidden border border-[#e9c9c2] shadow bg-white"
+                  >
+                    <img src={src} alt={`preview-${index}`} className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="max-w-2xl mx-auto mt-8 bg-white rounded-[2rem] shadow-lg border border-[#f1dfd8] p-6">
           <div className="flex justify-between items-center text-lg font-semibold">
             <span>Total</span>
@@ -262,9 +338,14 @@ export default function App() {
 
           <button
             onClick={handlePay}
-            className="mt-5 w-full bg-gradient-to-r from-[#d98c82] to-[#c9a34d] hover:opacity-95 text-white py-4 rounded-full text-lg font-medium shadow-lg"
+            disabled={!canBuy}
+            className={`mt-5 w-full py-4 rounded-full text-lg font-medium shadow-lg transition ${
+              canBuy
+                ? "bg-gradient-to-r from-[#d98c82] to-[#c9a34d] hover:opacity-95 text-white"
+                : "bg-[#eadfdb] text-[#9f8f89] cursor-not-allowed"
+            }`}
           >
-            {current.buy}
+            {canBuy ? current.buy : current.packReady}
           </button>
         </div>
       </section>
