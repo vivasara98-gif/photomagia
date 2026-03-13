@@ -162,18 +162,19 @@ export default function App() {
   const clearPhotos = () => setFiles([]);
 
   return (
+  <div className="min-h-screen bg-[#faf7f6] text-[#564844]">
     <div className="w-full bg-[#d98c82] text-white overflow-hidden">
-  <div className="marquee">
-    <div className="marquee-track">
-      <span>
-        🚚 Entregas gratuitas em encomendas superiores a 30€ • Envio para Portugal e Europa • ✨ Ímanes personalizados 5x5 cm • 🎁 Presente perfeito para casamentos, bebés e aniversários •
-      </span>
-      <span>
-        🚚 Entregas gratuitas em encomendas superiores a 30€ • Envio para Portugal e Europa • ✨ Ímanes personalizados 5x5 cm • 🎁 Presente perfeito para casamentos, bebés e aniversários •
-      </span>
+      <div className="marquee">
+        <div className="marquee-track">
+          <span>
+            🚚 Entregas gratuitas em encomendas superiores a 30€ • Envio para Portugal e Europa • ✨ Ímanes personalizados 5x5 cm • 🎁 Presente perfeito para casamentos, bebés e aniversários •
+          </span>
+          <span>
+            🚚 Entregas gratuitas em encomendas superiores a 30€ • Envio para Portugal e Europa • ✨ Ímanes personalizados 5x5 cm • 🎁 Presente perfeito para casamentos, bebés e aniversários •
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
       <header className="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <img src="/logo.png" alt="PhotoMagia" className="h-20 object-contain" />
