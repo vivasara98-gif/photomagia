@@ -163,6 +163,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#faf7f6] text-[#564844]">
+{/* Announcement bar */}
+<div className="w-full bg-[#d98c82] text-white text-sm py-2 px-4 text-center">
+  🚚 Entregas gratuitas em encomendas superiores a 30€ • 🇵🇹 Envio para Portugal
+</div>
       <header className="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <img src="/logo.png" alt="PhotoMagia" className="h-20 object-contain" />
