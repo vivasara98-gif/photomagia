@@ -6,6 +6,7 @@ export default function App() {
   const [files, setFiles] = useState([]);
 const removePhoto = (indexToRemove) => {
   setFiles((prev) => prev.filter((_, index) => index !== indexToRemove));
+const canBuy = files.length === selectedPack;
 };
 
   const stripeLinks = {
@@ -157,11 +158,17 @@ const removePhoto = (indexToRemove) => {
     return files.map((file) => URL.createObjectURL(file));
   }, [files]);
 
-  const handlePay = () => {
-    if (!canBuy) return;
-const link = stripeLinks[selectedPack];
-    window.location.href = stripeLink;
-  };
+ const handlePay = () => {
+  if (!canBuy) return;
+
+  const link = stripeLinks[selectedPack];
+  if (!link) {
+    alert("Falta configurar o link de pagamento deste pack.");
+    return;
+  }
+
+  window.location.href = link;
+};
 
   const handleFileChange = (e) => {
     const selected = Array.from(e.target.files || []);
@@ -369,18 +376,22 @@ const link = stripeLinks[selectedPack];
             <span>Total</span>
             <span>€{selectedPrice.toFixed(2)}</span>
           </div>
-
-          <button
-            onClick={handlePay}
-            disabled={!canBuy}
-            className={`mt-5 w-full py-4 rounded-full text-lg font-medium shadow-lg transition ${
-              canBuy
-                ? "bg-gradient-to-r from-[#d98c82] to-[#c9a34d] hover:opacity-95 text-white"
-                : "bg-[#eadfdb] text-[#9f8f89] cursor-not-allowed"
-            }`}
-          >
-            {canBuy ? current.buy : current.packReady}
-          </button>
+{!canBuy && (
+  <p className="text-sm text-[#b26d60] mt-4 text-center">
+    Tens de carregar exatamente {selectedPack} fotos para este pack.
+  </p>
+)}
+         <button
+  onClick={handlePay}
+  disabled={!canBuy}
+  className={`mt-5 w-full py-4 rounded-full text-lg font-medium shadow-lg transition ${
+    canBuy
+      ? "bg-gradient-to-r from-[#d98c82] to-[#c9a34d] hover:opacity-95 text-white"
+      : "bg-[#eadfdb] text-[#9f8f89] cursor-not-allowed"
+  }`}
+>
+  {current.buy}
+</button>
         </div>
       </section>
 
