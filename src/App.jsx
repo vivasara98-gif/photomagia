@@ -156,6 +156,7 @@ export default function App() {
 
   const handlePay = () => {
     if (!canBuy) return;
+const link = stripeLinks[selectedPack];
     window.location.href = stripeLink;
   };
 
