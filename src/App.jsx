@@ -5,7 +5,12 @@ export default function App() {
   const [selectedPack, setSelectedPack] = useState(10);
   const [files, setFiles] = useState([]);
 
-  const stripeLink = "https://buy.stripe.com/test_aFa7sMgcIbdsceM7XB0Fi00";
+  const stripeLinks = {
+  5: "https://buy.stripe.com/test_fZuaEYe4Abds2EccdR0Fi01",
+  10: "https://buy.stripe.com/test_5kQ14o6C8chwemUa5J0Fi02",
+  20: "https://buy.stripe.com/test_3cIdRaaSoepEceMfq30Fi03",
+  50: "https://buy.stripe.com/test_dRmfZid0w0yO7YwelZ0Fi04",
+};
 
   const content = {
     pt: {
