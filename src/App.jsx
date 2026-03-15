@@ -4,6 +4,9 @@ export default function App() {
   const [language, setLanguage] = useState("pt");
   const [selectedPack, setSelectedPack] = useState(10);
   const [files, setFiles] = useState([]);
+const removePhoto = (indexToRemove) => {
+  setFiles((prev) => prev.filter((_, index) => index !== indexToRemove));
+};
 
   const stripeLinks = {
   5: "https://buy.stripe.com/test_fZuaEYe4Abds2EccdR0Fi01",
@@ -331,21 +334,34 @@ const link = stripeLinks[selectedPack];
             </div>
           )}
 
-          {previewUrls.length > 0 && (
-            <div className="mt-6">
-              <p className="text-sm text-[#8f7c76] mb-3">{current.preview}</p>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-                {previewUrls.map((src, index) => (
-                  <div
-                    key={index}
-                    className="aspect-square rounded-[1.2rem] overflow-hidden border border-[#e9c9c2] shadow bg-white"
-                  >
-                    <img src={src} alt={`preview-${index}`} className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+         {previewUrls.length > 0 && (
+  <div className="mt-6">
+    <p className="text-sm text-[#8f7c76] mb-3">{current.preview}</p>
+
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+      {previewUrls.map((src, index) => (
+        <div
+          key={index}
+          className="relative aspect-square rounded-xl overflow-hidden border border-[#e9c9c2]"
+        >
+          <img
+            src={src}
+            alt={`preview-${index}`}
+            className="w-full h-full object-cover"
+          />
+
+          <button
+            type="button"
+            onClick={() => removePhoto(index)}
+            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white text-red-500 shadow flex items-center justify-center text-sm"
+          >
+            ×
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
         </div>
 
         <div className="max-w-2xl mx-auto mt-8 bg-white rounded-[2rem] shadow-lg border border-[#f1dfd8] p-6">
